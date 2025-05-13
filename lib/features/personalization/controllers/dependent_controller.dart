@@ -25,10 +25,10 @@ class DependentController extends GetxController {
   final gender = TextEditingController();
   final dateOfBirth = TextEditingController();
   final relation = TextEditingController();
-  final dailyMedicationUsage = TextEditingController();
+  final evohaler = TextEditingController();
   final selectedGender = ''.obs;
   final selectedRelation = ''.obs;
-  final selectedDailyMedicationUsage = '0'.obs;
+  final selectedEvohaler = '0'.obs;
   final selectedDob = Rxn<DateTime>();
   final profileImage = Rxn<XFile>();
   GlobalKey<FormState> dependentFormKey = GlobalKey<FormState>();
@@ -45,7 +45,7 @@ class DependentController extends GetxController {
     gender.dispose();
     dateOfBirth.dispose();
     relation.dispose();
-    dailyMedicationUsage.dispose();
+    evohaler.dispose();
     super.onClose();
   }
 
@@ -99,7 +99,7 @@ class DependentController extends GetxController {
         dateOfBirth: dateOfBirth.text.trim(),
         profilePicture: '',
         relation: selectedRelation.value,
-        dailyMedicationUsage: selectedDailyMedicationUsage.value,
+        evohaler: selectedEvohaler.value,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
       );
@@ -205,10 +205,10 @@ class DependentController extends GetxController {
     gender.clear();
     dateOfBirth.clear();
     relation.clear();
-    dailyMedicationUsage.clear();
+    evohaler.clear();
     selectedGender.value = '';
     selectedRelation.value = '';
-    selectedDailyMedicationUsage.value = '0';
+    selectedEvohaler.value = '0';
     selectedDob.value = null;
     profileImage.value = null;
   }
@@ -231,7 +231,7 @@ class DependentController extends GetxController {
         dateOfBirth: dependent.dateOfBirth,
         profilePicture: imageUrl,
         relation: dependent.relation,
-        dailyMedicationUsage: dependent.dailyMedicationUsage,
+        evohaler: dependent.evohaler,
         createdAt: dependent.createdAt,
         updatedAt: Timestamp.now(),
       );

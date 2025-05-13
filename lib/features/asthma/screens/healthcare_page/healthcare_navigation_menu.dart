@@ -52,8 +52,8 @@ class HealthcareNavigationMenu extends StatelessWidget {
                 NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
                 NavigationDestination(
                     icon: Icon(Iconsax.clipboard_tick), label: 'Events'),
-                NavigationDestination(
-                    icon: Icon(Iconsax.chart_square), label: 'Analytics'),
+                // NavigationDestination(
+                //     icon: Icon(Iconsax.chart_square), label: 'Analytics'),
                 NavigationDestination(
                     icon: Icon(Iconsax.user), label: 'Profile'),
               ],
@@ -74,7 +74,7 @@ class HealthcareNavigationController extends GetxController {
   final screens = [
     const HealthcareHomePage(),
     const HealthcareEventPage(),
-    const PlaceholderScreen(title: 'Analytics'),
+    // const PlaceholderScreen(title: 'Analytics'),
     const SettingScreen()
   ];
 

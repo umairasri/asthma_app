@@ -8,6 +8,7 @@ import 'package:asthma_app/utils/constants/colors.dart';
 import 'package:asthma_app/utils/popups/loaders.dart';
 import 'package:asthma_app/utils/logger.dart';
 import 'event_form.dart';
+import 'package:asthma_app/features/asthma/screens/event/event_details_screen.dart';
 
 class HealthcareEventsList extends StatefulWidget {
   final String healthcareId;
@@ -166,9 +167,10 @@ class _HealthcareEventsListState extends State<HealthcareEventsList> {
       child: InkWell(
         onTap: isFutureEvent
             ? () {
-                Get.to(() => EventForm(
+                Get.to(() => EventDetailsScreen(
+                      eventId: event.eventId,
                       healthcareId: widget.healthcareId,
-                      event: event,
+                      isHealthcareUser: true,
                     ));
               }
             : () {

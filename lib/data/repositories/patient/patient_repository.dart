@@ -90,7 +90,7 @@ class PatientRepository extends GetxController {
           phoneNumber: '',
           gender: '',
           dateOfBirth: '',
-          dailyMedicationUsage: '',
+          evohaler: '',
         );
 
         await FirebaseFirestore.instance

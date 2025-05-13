@@ -51,7 +51,7 @@ class _EventsHistoryScreenState extends State<EventsHistoryScreen> {
       dateOfBirth: patientController.user.value.dateOfBirth,
       profilePicture: patientController.user.value.profilePicture,
       relation: 'Main Account',
-      dailyMedicationUsage: patientController.user.value.dailyMedicationUsage,
+      evohaler: patientController.user.value.evohaler,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     ));

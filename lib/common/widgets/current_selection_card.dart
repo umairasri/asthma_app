@@ -36,10 +36,8 @@ class CurrentSelectionCard extends StatelessWidget {
             selectedDependentController.selectedDependent.value?.dateOfBirth ??
                 '');
     final medicationFrequency = isUser
-        ? userController.user.value.dailyMedicationUsage
-        : selectedDependentController
-                .selectedDependent.value?.dailyMedicationUsage ??
-            '';
+        ? userController.user.value.evohaler
+        : selectedDependentController.selectedDependent.value?.evohaler ?? '0';
     final profilePicture = isUser
         ? (userController.user.value.profilePicture.isNotEmpty
             ? userController.user.value.profilePicture

@@ -17,15 +17,19 @@ import 'package:asthma_app/features/personalization/controllers/patient_controll
 import 'package:asthma_app/features/personalization/controllers/selected_dependent_controller.dart';
 import 'package:asthma_app/features/asthma/screens/event/widgets/participant_selection_card.dart';
 import 'package:asthma_app/features/personalization/controllers/dependent_controller.dart';
+import 'package:asthma_app/features/events/widgets/event_form.dart';
+import 'package:asthma_app/features/asthma/screens/event/participants_list_screen.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final String eventId;
   final String healthcareId;
+  final bool isHealthcareUser;
 
   const EventDetailsScreen({
     super.key,
     required this.eventId,
     required this.healthcareId,
+    this.isHealthcareUser = false,
   });
 
   @override
@@ -202,7 +206,7 @@ class EventDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
-                  // Join Button
+                  // Action Buttons
                   Obx(() {
                     final event = eventController.events
                         .firstWhereOrNull((e) => e.eventId == eventId);
@@ -210,37 +214,98 @@ class EventDetailsScreen extends StatelessWidget {
                     final isFull = currentParticipants >=
                         (event?.numberOfParticipant ?? 0);
 
-                    return Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: ElevatedButton(
-                        onPressed: isFull
-                            ? null
-                            : () => _showSelectDependentPopup(
-                                  context,
-                                  userController,
-                                  dependentController,
-                                  selectedDependentController,
+                    if (isHealthcareUser) {
+                      return Row(
+                        children: [
+                          // Edit Event Button
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Get.to(() => EventForm(
+                                      healthcareId: healthcareId,
+                                      event: event,
+                                    ));
+                              },
+                              icon: const Icon(Icons.edit_outlined),
+                              label: const Text('Edit Event'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: TColors.primary,
+                                foregroundColor: TColors.white,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      TSizes.borderRadiusLg),
                                 ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              isFull ? TColors.grey : TColors.primary,
-                          foregroundColor: TColors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(TSizes.borderRadiusLg),
-                          ),
-                          elevation: isFull ? 0 : 2,
-                        ),
-                        child: Text(
-                          isFull ? 'Event Full' : 'Join Now',
-                          style: Theme.of(context).textTheme.titleMedium?.apply(
-                                color: TColors.white,
+                                elevation: 2,
                               ),
+                            ),
+                          ),
+                          const SizedBox(width: TSizes.spaceBtwItems),
+                          // View Participants Button
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Get.to(() => ParticipantsListScreen(
+                                      eventId: eventId,
+                                      healthcareId: healthcareId,
+                                    ));
+                              },
+                              icon: const Icon(Icons.people_outline),
+                              label: Text(
+                                  '      View\nParticipants (${currentParticipants})'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: TColors.secondary,
+                                foregroundColor: TColors.black,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      TSizes.borderRadiusLg),
+                                ),
+                                elevation: 2,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: ElevatedButton.icon(
+                          onPressed: isFull
+                              ? null
+                              : () => _showSelectDependentPopup(
+                                    context,
+                                    userController,
+                                    dependentController,
+                                    selectedDependentController,
+                                  ),
+                          icon: Icon(isFull
+                              ? Icons.event_busy
+                              : Icons.event_available),
+                          label: Text(
+                            isFull ? 'Event Full' : 'Join Now',
+                            style:
+                                Theme.of(context).textTheme.titleMedium?.apply(
+                                      color: TColors.white,
+                                    ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                isFull ? TColors.grey : TColors.primary,
+                            foregroundColor: TColors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(TSizes.borderRadiusLg),
+                            ),
+                            elevation: isFull ? 0 : 2,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   }),
                 ],
               ),

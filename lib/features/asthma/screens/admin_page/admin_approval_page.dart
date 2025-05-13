@@ -154,19 +154,20 @@ class AdminApprovalPage extends StatelessWidget {
                       [
                         _buildInfoRow(
                           'Current Status',
-                          reactiveHealthcare.value.isApproved
-                              ? 'Approved'
-                              : 'Pending Approval',
-                          valueColor: reactiveHealthcare.value.isApproved
+                          reactiveHealthcare.value.status,
+                          valueColor: reactiveHealthcare.value.status ==
+                                  'Approved'
                               ? TColors.success
-                              : TColors.warning,
+                              : reactiveHealthcare.value.status == 'Rejected'
+                                  ? TColors.error
+                                  : TColors.warning,
                         ),
                       ],
                     ),
                     const SizedBox(height: TSizes.spaceBtwSections * 2),
 
                     // Action Buttons
-                    reactiveHealthcare.value.isApproved
+                    reactiveHealthcare.value.status == 'Approved'
                         ? Container(
                             width: double.infinity,
                             padding: const EdgeInsets.all(TSizes.md),
@@ -193,109 +194,146 @@ class AdminApprovalPage extends StatelessWidget {
                               ],
                             ),
                           )
-                        : Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    try {
-                                      await healthcareController
-                                          .approveHealthcareProvider(
-                                              reactiveHealthcare.value.id);
-                                      // Create a new instance with updated approval status
-                                      reactiveHealthcare.value =
-                                          HealthcareModel(
-                                        id: reactiveHealthcare.value.id,
-                                        userId: reactiveHealthcare.value.userId,
-                                        facilityName: reactiveHealthcare
-                                            .value.facilityName,
-                                        licenseNumber: reactiveHealthcare
-                                            .value.licenseNumber,
-                                        facilityContactNumber:
-                                            reactiveHealthcare
-                                                .value.facilityContactNumber,
-                                        facilityAddress: reactiveHealthcare
-                                            .value.facilityAddress,
-                                        representativeName: reactiveHealthcare
-                                            .value.representativeName,
-                                        representativeEmail: reactiveHealthcare
-                                            .value.representativeEmail,
-                                        registrationDocument: reactiveHealthcare
-                                            .value.registrationDocument,
-                                        profilePicture: reactiveHealthcare
-                                            .value.profilePicture,
-                                        isApproved: true,
-                                      );
-                                    } catch (e) {
-                                      TLoaders.errorSnackBar(
-                                        title: 'Error',
-                                        message: e.toString(),
-                                      );
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: TColors.success,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: TSizes.defaultSpace),
-                                  ),
-                                  child: const Text(
-                                    'Approve',
-                                    style: TextStyle(color: TColors.white),
-                                  ),
+                        : reactiveHealthcare.value.status == 'Rejected'
+                            ? Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(TSizes.md),
+                                decoration: BoxDecoration(
+                                  color: TColors.error.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(
+                                      TSizes.cardRadiusMd),
+                                  border: Border.all(color: TColors.error),
                                 ),
-                              ),
-                              const SizedBox(width: TSizes.spaceBtwItems),
-                              Expanded(
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    try {
-                                      await healthcareController
-                                          .rejectHealthcareProvider(
-                                              reactiveHealthcare.value.id);
-                                      // Create a new instance with updated approval status
-                                      reactiveHealthcare.value =
-                                          HealthcareModel(
-                                        id: reactiveHealthcare.value.id,
-                                        userId: reactiveHealthcare.value.userId,
-                                        facilityName: reactiveHealthcare
-                                            .value.facilityName,
-                                        licenseNumber: reactiveHealthcare
-                                            .value.licenseNumber,
-                                        facilityContactNumber:
-                                            reactiveHealthcare
-                                                .value.facilityContactNumber,
-                                        facilityAddress: reactiveHealthcare
-                                            .value.facilityAddress,
-                                        representativeName: reactiveHealthcare
-                                            .value.representativeName,
-                                        representativeEmail: reactiveHealthcare
-                                            .value.representativeEmail,
-                                        registrationDocument: reactiveHealthcare
-                                            .value.registrationDocument,
-                                        profilePicture: reactiveHealthcare
-                                            .value.profilePicture,
-                                        isApproved: false,
-                                      );
-                                    } catch (e) {
-                                      TLoaders.errorSnackBar(
-                                        title: 'Error',
-                                        message: e.toString(),
-                                      );
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: TColors.error,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: TSizes.defaultSpace),
-                                  ),
-                                  child: const Text(
-                                    'Reject',
-                                    style: TextStyle(color: TColors.white),
-                                  ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.cancel,
+                                        color: TColors.error),
+                                    const SizedBox(width: TSizes.spaceBtwItems),
+                                    Text(
+                                      'Healthcare Has Been Rejected',
+                                      style: TextStyle(
+                                        color: TColors.error,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              )
+                            : Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        try {
+                                          await healthcareController
+                                              .approveHealthcareProvider(
+                                                  reactiveHealthcare.value.id);
+                                          // Create a new instance with updated approval status
+                                          reactiveHealthcare.value =
+                                              HealthcareModel(
+                                            id: reactiveHealthcare.value.id,
+                                            userId:
+                                                reactiveHealthcare.value.userId,
+                                            facilityName: reactiveHealthcare
+                                                .value.facilityName,
+                                            licenseNumber: reactiveHealthcare
+                                                .value.licenseNumber,
+                                            facilityContactNumber:
+                                                reactiveHealthcare.value
+                                                    .facilityContactNumber,
+                                            facilityAddress: reactiveHealthcare
+                                                .value.facilityAddress,
+                                            representativeName:
+                                                reactiveHealthcare
+                                                    .value.representativeName,
+                                            representativeEmail:
+                                                reactiveHealthcare
+                                                    .value.representativeEmail,
+                                            registrationDocument:
+                                                reactiveHealthcare
+                                                    .value.registrationDocument,
+                                            profilePicture: reactiveHealthcare
+                                                .value.profilePicture,
+                                            isApproved: true,
+                                            status: 'Approved',
+                                          );
+                                        } catch (e) {
+                                          TLoaders.errorSnackBar(
+                                            title: 'Error',
+                                            message: e.toString(),
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: TColors.success,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: TSizes.defaultSpace),
+                                      ),
+                                      child: const Text(
+                                        'Approve',
+                                        style: TextStyle(color: TColors.white),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: TSizes.spaceBtwItems),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        try {
+                                          await healthcareController
+                                              .rejectHealthcareProvider(
+                                                  reactiveHealthcare.value.id);
+                                          // Create a new instance with updated approval status
+                                          reactiveHealthcare.value =
+                                              HealthcareModel(
+                                            id: reactiveHealthcare.value.id,
+                                            userId:
+                                                reactiveHealthcare.value.userId,
+                                            facilityName: reactiveHealthcare
+                                                .value.facilityName,
+                                            licenseNumber: reactiveHealthcare
+                                                .value.licenseNumber,
+                                            facilityContactNumber:
+                                                reactiveHealthcare.value
+                                                    .facilityContactNumber,
+                                            facilityAddress: reactiveHealthcare
+                                                .value.facilityAddress,
+                                            representativeName:
+                                                reactiveHealthcare
+                                                    .value.representativeName,
+                                            representativeEmail:
+                                                reactiveHealthcare
+                                                    .value.representativeEmail,
+                                            registrationDocument:
+                                                reactiveHealthcare
+                                                    .value.registrationDocument,
+                                            profilePicture: reactiveHealthcare
+                                                .value.profilePicture,
+                                            isApproved: true,
+                                            status: 'Rejected',
+                                          );
+                                        } catch (e) {
+                                          TLoaders.errorSnackBar(
+                                            title: 'Error',
+                                            message: e.toString(),
+                                          );
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: TColors.error,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: TSizes.defaultSpace),
+                                      ),
+                                      child: const Text(
+                                        'Reject',
+                                        style: TextStyle(color: TColors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
                   ],
                 )),
           ],

@@ -25,7 +25,7 @@ class EditDependentScreen extends StatefulWidget {
 class _EditDependentScreenState extends State<EditDependentScreen> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
-  late TextEditingController _dailyMedicationUsageController;
+  late TextEditingController _evohalerController;
   File? _image;
   final controller = Get.put(DependentController());
   bool _isLoading = false;
@@ -36,14 +36,14 @@ class _EditDependentScreenState extends State<EditDependentScreen> {
     super.initState();
     // Initialize with safe default values if null
     _nameController = TextEditingController(text: widget.dependent.name ?? '');
-    _dailyMedicationUsageController = TextEditingController(
-        text: widget.dependent.dailyMedicationUsage ?? '0');
+    _evohalerController =
+        TextEditingController(text: widget.dependent.evohaler ?? '0');
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _dailyMedicationUsageController.dispose();
+    _evohalerController.dispose();
     super.dispose();
   }
 
@@ -137,17 +137,17 @@ class _EditDependentScreenState extends State<EditDependentScreen> {
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems),
 
-                // Daily Medication Usage
+                // Evohaler
                 TextFormField(
-                  controller: _dailyMedicationUsageController,
+                  controller: _evohalerController,
                   decoration: const InputDecoration(
-                    labelText: 'Daily Medication Usage',
+                    labelText: 'Evohaler',
                     prefixIcon: Icon(Iconsax.clock),
                     hintText: 'e.g., 2 times per day',
                   ),
                   keyboardType: TextInputType.number,
-                  validator: (value) => TValidator.validateEmptyText(
-                      'Daily Medication Usage', value),
+                  validator: (value) =>
+                      TValidator.validateEmptyText('Evohaler', value),
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems),
 
@@ -225,7 +225,7 @@ class _EditDependentScreenState extends State<EditDependentScreen> {
         relation: widget.dependent.relation ?? 'Child',
         profilePicture: profilePictureUrl ?? '',
         userId: widget.dependent.userId ?? '',
-        dailyMedicationUsage: _dailyMedicationUsageController.text.trim(),
+        evohaler: _evohalerController.text.trim(),
         createdAt: widget.dependent.createdAt ?? Timestamp.now(),
         updatedAt: Timestamp.now(),
       );

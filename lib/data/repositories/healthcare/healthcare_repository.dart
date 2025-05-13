@@ -209,7 +209,7 @@ class HealthcareRepository extends GetxController {
       await _db
           .collection("Healthcare")
           .doc(healthcareId)
-          .update({"IsApproved": true});
+          .update({"IsApproved": true, "Status": "Approved"});
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -227,7 +227,7 @@ class HealthcareRepository extends GetxController {
       await _db
           .collection("Healthcare")
           .doc(healthcareId)
-          .update({"IsApproved": false});
+          .update({"IsApproved": true, "Status": "Rejected"});
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {

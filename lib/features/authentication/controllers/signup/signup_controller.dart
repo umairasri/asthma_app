@@ -89,7 +89,7 @@ class SignupController extends GetxController {
         profilePicture: '',
         gender: '', // Empty string for gender
         dateOfBirth: '', // Empty string for date of birth
-        dailyMedicationUsage: '', // Empty string for medication frequency
+        evohaler: '', // Empty string for medication frequency
       );
 
       final patientRepository = Get.put(PatientRepository());

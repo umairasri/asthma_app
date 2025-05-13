@@ -8,7 +8,7 @@ class DependentModel {
   final String dateOfBirth;
   final String profilePicture;
   final String relation; // e.g., "Child", "Parent", "Grandparent"
-  final String dailyMedicationUsage; // Number of daily medication usage
+  final String evohaler; // Number of daily medication usage
   final Timestamp createdAt;
   final Timestamp updatedAt;
 
@@ -20,7 +20,7 @@ class DependentModel {
     required this.dateOfBirth,
     required this.profilePicture,
     required this.relation,
-    required this.dailyMedicationUsage,
+    required this.evohaler,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -35,7 +35,7 @@ class DependentModel {
       dateOfBirth: '',
       profilePicture: '',
       relation: '',
-      dailyMedicationUsage: '0',
+      evohaler: '0',
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     );
@@ -51,7 +51,7 @@ class DependentModel {
       'dateOfBirth': dateOfBirth,
       'profilePicture': profilePicture,
       'relation': relation,
-      'dailyMedicationUsage': dailyMedicationUsage,
+      'evohaler': evohaler,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -67,7 +67,7 @@ class DependentModel {
       dateOfBirth: json['dateOfBirth'] ?? '',
       profilePicture: json['profilePicture'] ?? '',
       relation: json['relation'] ?? '',
-      dailyMedicationUsage: json['dailyMedicationUsage'] ?? '',
+      evohaler: json['evohaler'] ?? '',
       createdAt: json['createdAt'] ?? Timestamp.now(),
       updatedAt: json['updatedAt'] ?? Timestamp.now(),
     );
@@ -82,7 +82,7 @@ class DependentModel {
     String? dateOfBirth,
     String? profilePicture,
     String? relation,
-    String? dailyMedicationUsage,
+    String? evohaler,
     Timestamp? createdAt,
     Timestamp? updatedAt,
   }) {
@@ -94,7 +94,7 @@ class DependentModel {
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       profilePicture: profilePicture ?? this.profilePicture,
       relation: relation ?? this.relation,
-      dailyMedicationUsage: dailyMedicationUsage ?? this.dailyMedicationUsage,
+      evohaler: evohaler ?? this.evohaler,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

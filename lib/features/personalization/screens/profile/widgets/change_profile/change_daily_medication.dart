@@ -26,7 +26,7 @@ class ChangeDailyMedication extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Update your daily medication usage. This information helps in tracking your asthma management.',
+              'Update your Flixotide Evohaler usage. This information helps in tracking your asthma management.',
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: TSizes.spaceBtwSections),
@@ -35,10 +35,10 @@ class ChangeDailyMedication extends StatelessWidget {
               child: TextFormField(
                 controller: controller.dailyMedication,
                 validator: (value) =>
-                    TValidator.validateEmptyText('Daily medication', value),
+                    TValidator.validateEmptyText('Flixotide Evohaler', value),
                 expands: false,
                 decoration: const InputDecoration(
-                  labelText: 'Daily Medication Usage',
+                  labelText: 'Flixotide Evohaler Usage',
                   prefixIcon: Icon(Iconsax.health),
                 ),
               ),

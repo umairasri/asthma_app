@@ -1,3 +1,4 @@
+import 'package:asthma_app/features/personalization/screens/profile/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -266,7 +267,8 @@ class AdminController extends GetxController {
       TLoaders.successSnackBar(
           title: 'Success', message: 'Your name has been updated!');
 
-      Get.back();
+      // Move to previous screen.
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());

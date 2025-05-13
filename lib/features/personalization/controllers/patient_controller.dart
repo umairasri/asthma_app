@@ -161,7 +161,7 @@ class PatientController extends GetxController {
             profilePicture: userCredentials.user!.photoURL ?? '',
             gender: '',
             dateOfBirth: '',
-            dailyMedicationUsage: '',
+            evohaler: '0',
           );
 
           await patientRepository.saveUserRecord(patient);
@@ -307,7 +307,7 @@ class PatientController extends GetxController {
 
       // Update patient record
       final updatedPatient = user.value;
-      updatedPatient.dailyMedicationUsage = dailyMedication.text.trim();
+      updatedPatient.evohaler = dailyMedication.text.trim();
       await patientRepository.updateUserDetails(updatedPatient);
 
       // Update local user data
@@ -364,8 +364,8 @@ class PatientController extends GetxController {
       if (json.containsKey('DateOfBirth')) {
         user.value.dateOfBirth = json['DateOfBirth'];
       }
-      if (json.containsKey('DailyMedicationUsage')) {
-        user.value.dailyMedicationUsage = json['DailyMedicationUsage'];
+      if (json.containsKey('Evohaler')) {
+        user.value.evohaler = json['Evohaler'];
       }
       // Force refresh to notify all listeners
       user.refresh();

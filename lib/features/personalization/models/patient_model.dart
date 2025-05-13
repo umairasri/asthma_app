@@ -12,7 +12,7 @@ class PatientModel {
   String profilePicture;
   String gender;
   String dateOfBirth;
-  String dailyMedicationUsage; // Number of daily medication usage
+  String evohaler; // Number of daily medication usage
 
   /// Constructor for UserModel.
   PatientModel({
@@ -25,7 +25,7 @@ class PatientModel {
     required this.profilePicture,
     required this.gender,
     required this.dateOfBirth,
-    required this.dailyMedicationUsage,
+    required this.evohaler,
   });
 
   /// Helper function to get the full name.
@@ -60,7 +60,7 @@ class PatientModel {
         profilePicture: '',
         gender: '',
         dateOfBirth: '',
-        dailyMedicationUsage: '0',
+        evohaler: '0',
       );
 
   // Convert model to JSON structure for storing data in Firebase.
@@ -74,7 +74,7 @@ class PatientModel {
       'ProfilePicture': profilePicture,
       'Gender': gender,
       'DateOfBirth': dateOfBirth,
-      'DailyMedicationUsage': dailyMedicationUsage,
+      'Evohaler': evohaler,
     };
   }
 
@@ -93,7 +93,7 @@ class PatientModel {
         profilePicture: data['ProfilePicture'] ?? '',
         gender: data['Gender'] ?? '',
         dateOfBirth: data['DateOfBirth'] ?? '',
-        dailyMedicationUsage: data['DailyMedicationUsage'] ?? '',
+        evohaler: data['Evohaler'] ?? '',
       );
     } else {
       return PatientModel.empty();

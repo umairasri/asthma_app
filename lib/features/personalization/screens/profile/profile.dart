@@ -410,8 +410,8 @@ class ProfileScreen extends StatelessWidget {
         ),
         const SizedBox(height: TSizes.iconXs),
         TProfileMenu(
-          title: 'Daily Medicine',
-          value: controller.user.value.dailyMedicationUsage,
+          title: 'Flixotide Evohaler',
+          value: controller.user.value.evohaler,
           onPressed: () => Get.off(() => const ChangeDailyMedication()),
         ),
         const SizedBox(height: TSizes.iconXs),

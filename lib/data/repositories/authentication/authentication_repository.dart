@@ -7,6 +7,9 @@ import 'package:asthma_app/features/authentication/screens/waiting_approval/wait
 import 'package:asthma_app/features/asthma/screens/admin_page/admin_navigation_menu.dart';
 import 'package:asthma_app/features/asthma/screens/healthcare_page/healthcare_home_page.dart';
 import 'package:asthma_app/features/personalization/controllers/patient_controller.dart';
+import 'package:asthma_app/features/personalization/models/patient_model.dart';
+import 'package:asthma_app/features/personalization/models/user_model.dart';
+import 'package:asthma_app/data/repositories/user/user_repository.dart';
 import 'package:asthma_app/navigation_menu.dart';
 import 'package:asthma_app/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:asthma_app/utils/exceptions/firebase_exceptions.dart';
@@ -243,7 +246,44 @@ class AuthenticationRepository extends GetxController {
           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
 
       // Once signed in, return the UserCredential
-      return await _auth.signInWithCredential(credentials);
+      final userCredential = await _auth.signInWithCredential(credentials);
+
+      // Check if this is a new user
+      if (userCredential.additionalUserInfo?.isNewUser ?? false) {
+        // Create User record
+        final user = UserModel(
+          userId: userCredential.user!.uid,
+          email: userCredential.user!.email ?? '',
+          role: UserRole.patient,
+        );
+
+        final userRepository = Get.put(UserRepository());
+        await userRepository.createUser(user);
+
+        // Create Patient record
+        final nameParts =
+            PatientModel.nameParts(userCredential.user!.displayName ?? '');
+        final username = PatientModel.generateUsername(
+            userCredential.user!.displayName ?? '');
+
+        final patient = PatientModel(
+          id: userCredential.user!.uid,
+          userId: userCredential.user!.uid,
+          username: username,
+          firstName: nameParts[0],
+          lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+          phoneNumber: userCredential.user!.phoneNumber ?? '',
+          profilePicture: userCredential.user!.photoURL ?? '',
+          gender: '',
+          dateOfBirth: '',
+          evohaler: '0',
+        );
+
+        final patientRepository = Get.put(PatientRepository());
+        await patientRepository.saveUserRecord(patient);
+      }
+
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

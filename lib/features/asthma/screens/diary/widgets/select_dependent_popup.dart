@@ -64,8 +64,7 @@ class SelectDependentPopup extends StatelessWidget {
             name: userController.user.value.username,
             gender: userController.user.value.gender,
             age: _calculateAge(userController.user.value.dateOfBirth),
-            dailyMedicationUsage:
-                userController.user.value.dailyMedicationUsage,
+            evohaler: userController.user.value.evohaler,
           ),
 
           // Dependents List
@@ -91,7 +90,7 @@ class SelectDependentPopup extends StatelessWidget {
                   name: dependent.name ?? 'Unknown',
                   gender: dependent.gender ?? '',
                   age: _calculateAge(dependent.dateOfBirth ?? ''),
-                  dailyMedicationUsage: dependent.dailyMedicationUsage ?? '0',
+                  evohaler: dependent.evohaler ?? '0',
                 );
               },
             ),
@@ -109,7 +108,7 @@ class SelectDependentPopup extends StatelessWidget {
     required String name,
     required String gender,
     required String age,
-    required String dailyMedicationUsage,
+    required String evohaler,
   }) {
     return Card(
       margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
@@ -161,7 +160,7 @@ class SelectDependentPopup extends StatelessWidget {
                     ),
                     const SizedBox(height: TSizes.xs),
                     Text(
-                      'Daily Medication: $dailyMedicationUsage times',
+                      'Daily Medication: $evohaler times',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],

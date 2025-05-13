@@ -1,3 +1,4 @@
+import 'package:asthma_app/features/personalization/screens/profile/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -276,7 +277,8 @@ class HealthcareController extends GetxController {
       await updateHealthcareProfile(updatedHealthcare);
 
       TFullScreenLoader.stopLoading();
-      Get.back();
+      // Move to previous screen.
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
@@ -304,7 +306,8 @@ class HealthcareController extends GetxController {
       await updateHealthcareProfile(updatedHealthcare);
 
       TFullScreenLoader.stopLoading();
-      Get.back();
+      // Move to previous screen.
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
@@ -332,7 +335,8 @@ class HealthcareController extends GetxController {
       await updateHealthcareProfile(updatedHealthcare);
 
       TFullScreenLoader.stopLoading();
-      Get.back();
+      // Move to previous screen.
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
@@ -360,7 +364,8 @@ class HealthcareController extends GetxController {
       await updateHealthcareProfile(updatedHealthcare);
 
       TFullScreenLoader.stopLoading();
-      Get.back();
+      // Move to previous screen.
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
@@ -388,7 +393,8 @@ class HealthcareController extends GetxController {
       await updateHealthcareProfile(updatedHealthcare);
 
       TFullScreenLoader.stopLoading();
-      Get.back();
+      // Move to previous screen.
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());

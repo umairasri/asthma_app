@@ -139,11 +139,11 @@ class AddDependentForm extends StatelessWidget {
 
           /// Daily Medication Usage
           TextFormField(
-            controller: controller.dailyMedicationUsage,
+            controller: controller.evohaler,
             validator: (value) =>
-                TValidator.validateEmptyText('Daily Medication Dose', value),
+                TValidator.validateEmptyText('Flixotide Evohaler', value),
             decoration: const InputDecoration(
-              labelText: 'Daily Medication Dose',
+              labelText: 'Flixotide Evohaler Usage',
               prefixIcon: Icon(Iconsax.clock),
             ),
           ),

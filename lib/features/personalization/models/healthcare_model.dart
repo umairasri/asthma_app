@@ -13,6 +13,7 @@ class HealthcareModel {
   final String registrationDocument;
   String profilePicture;
   final bool isApproved;
+  String status;
 
   /// Constructor for HealthcareModel.
   HealthcareModel({
@@ -27,6 +28,7 @@ class HealthcareModel {
     required this.registrationDocument,
     this.profilePicture = '',
     this.isApproved = false,
+    this.status = 'Pending',
   });
 
   /// Static function to create an empty healthcare model.
@@ -42,6 +44,7 @@ class HealthcareModel {
         registrationDocument: '',
         profilePicture: '',
         isApproved: false,
+        status: 'Pending',
       );
 
   /// Convert model to JSON structure for storing data in Firebase.
@@ -57,6 +60,7 @@ class HealthcareModel {
       'RegistrationDocument': registrationDocument,
       'ProfilePicture': profilePicture,
       'IsApproved': isApproved,
+      'Status': status,
     };
   }
 
@@ -77,6 +81,7 @@ class HealthcareModel {
         registrationDocument: data['RegistrationDocument'] ?? '',
         profilePicture: data['ProfilePicture'] ?? '',
         isApproved: data['IsApproved'] ?? false,
+        status: data['Status'] ?? 'Pending',
       );
     } else {
       return HealthcareModel.empty();

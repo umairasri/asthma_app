@@ -24,7 +24,12 @@ class _AdminHealthcarePageState extends State<AdminHealthcarePage>
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   String _selectedFilter = 'All';
-  final List<String> _filterOptions = ['All', 'Approved', 'Pending'];
+  final List<String> _filterOptions = [
+    'All',
+    'Approved',
+    'Pending',
+    'Rejected'
+  ];
 
   @override
   bool get wantKeepAlive => true;
@@ -57,8 +62,9 @@ class _AdminHealthcarePageState extends State<AdminHealthcarePage>
 
       // Then check if the provider matches the selected status
       final matchesStatus = _selectedFilter == 'All' ||
-          (_selectedFilter == 'Approved' && provider.isApproved) ||
-          (_selectedFilter == 'Pending' && !provider.isApproved);
+          (_selectedFilter == 'Approved' && provider.status == 'Approved') ||
+          (_selectedFilter == 'Pending' && provider.status == 'Pending') ||
+          (_selectedFilter == 'Rejected' && provider.status == 'Rejected');
 
       // Return true only if both conditions are met
       return matchesSearch && matchesStatus;
@@ -340,23 +346,36 @@ class _AdminHealthcarePageState extends State<AdminHealthcarePage>
                                                   height:
                                                       TSizes.spaceBtwItems / 2),
                                               Text(
-                                                provider.isApproved
+                                                provider.status == 'Approved'
                                                     ? 'Status: Approved'
-                                                    : 'Status: Pending',
+                                                    : provider.status ==
+                                                            'Pending'
+                                                        ? 'Status: Pending'
+                                                        : 'Status: Rejected',
                                                 style: TextStyle(
-                                                  color: provider.isApproved
-                                                      ? TColors.success
-                                                      : TColors.warning,
+                                                  color: provider.status ==
+                                                          'Rejected'
+                                                      ? TColors.error
+                                                      : provider.status ==
+                                                              'Approved'
+                                                          ? TColors.success
+                                                          : TColors.warning,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        if (provider.isApproved)
+                                        if (provider.status == 'Approved')
                                           const Icon(
                                             Icons.check_circle,
                                             color: TColors.success,
+                                            size: 30,
+                                          )
+                                        else if (provider.status == 'Rejected')
+                                          const Icon(
+                                            Icons.cancel,
+                                            color: TColors.error,
                                             size: 30,
                                           )
                                         else

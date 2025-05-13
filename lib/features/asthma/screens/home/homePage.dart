@@ -76,7 +76,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             dateOfBirth: '',
             profilePicture: '',
             relation: '',
-            dailyMedicationUsage: '',
+            evohaler: '',
             createdAt: Timestamp.now(),
             updatedAt: Timestamp.now(),
           ),
